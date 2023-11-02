@@ -16,14 +16,12 @@
 
 <div align="justify">
 
-
 + [Introducción.](#id1)
 + [Objetivos.](#id2)
 + [Material empleado.](#id3)
 + [Aplicación web.](#id4)
 + [Desarrollo.](#id5)
 + [Conclusiones.](#id6)
-
 
 ### Introducción <a name="id1"></a>
 
