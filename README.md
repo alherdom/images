@@ -1,6 +1,6 @@
 <div align="center">
 
-# Nginx Small Light. Images.
+# Ngx Small Light. Images.
 
 </div>
 
