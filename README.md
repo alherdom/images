@@ -30,12 +30,12 @@
 ### Objetivos <a name="id2"></a>
 
  1. Instalar el módulo ngx_small_light y cargarlo dinámicamente en Nginx.
- 2.Crear un virtual host específico que atienda peticiones en el dominio images.nombrealumno.me (server_name).
- 2. Habilitar el módulo ngx_small_light en el virtual host sólo para el location /img.
- 3. Subir las imágenes de images.zip (el archivo de adjunta a la tarea ) a una carpeta img dentro de la carpeta de trabajo elegida.
- 4. Crear una aplicación web que permita el tratamiento de dichas imágenes.
- 5. Incorporar certificado de seguridad (mostrar el certificado 🔒).
- 6. Redirigir el subdominio www al dominio base (incluyendo ssl).
+ 2. Crear un virtual host específico que atienda peticiones en el dominio images.nombrealumno.me (server_name).
+ 3. Habilitar el módulo ngx_small_light en el virtual host sólo para el location /img.
+ 4. Subir las imágenes de images.zip (el archivo de adjunta a la tarea ) a una carpeta img dentro de la carpeta de trabajo elegida.
+ 5. Crear una aplicación web que permita el tratamiento de dichas imágenes.
+ 6. Incorporar certificado de seguridad (mostrar el certificado 🔒).
+ 7. Redirigir el subdominio www al dominio base (incluyendo ssl).
 
 ### Material empleado <a name="id3"></a>
 
