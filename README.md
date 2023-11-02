@@ -41,7 +41,7 @@
 
 ### Material empleado <a name="id3"></a>
 
-1. Se ha empleado el equipo del aula
+1. Se ha empleado el equipo del aula.
 2. Las máquinas virtuales configuradas para el despliegue. 
 3. Despliegue nativo haciendo uso de servidor nginx.
 4. Despliegue dokerizado, mediante docker compose.
@@ -85,7 +85,7 @@ Al pulsar el botón de **Generar** se tendrán que mostrar todas las imágenes c
 
 ### Desarrollo<a name="id5"></a>
 
-- Para comenzar la práctica nos conectamos a la máquina servidor a través de ssh y una máquina cliente, habrá que accder con la contraseña:
+- Para comenzar la práctica nos conectamos a la máquina servidor a través de ssh y una máquina cliente, habrá que acceder con la contraseña:
 
 ```
 ssh 10.109.18.40
@@ -127,7 +127,7 @@ cd /tmp/nginx-1.24.0
 ./configure --add-dynamic-module=../ngx_small_light --with-compat
 ```
 
-- Estando en el mismo directorio y subcarpeta ejecutaremos el siguiente comandopara generar la librería dinámica:
+- Estando en el mismo directorio y subcarpeta ejecutaremos el siguiente comando para generar la librería dinámica:
 
 ```
 make modules
@@ -259,6 +259,58 @@ pc18-dpl@a109pc18dpl:/usr/share/nginx/images$ tree
 
 </div>
 
+### Dockerizando
+
+- Se ha dockerizado la aplicación haciendo uso de un Dockerfile, el cúal se encarga de descargar la imagen de nginx (1.24.0), instalar en ella las distitnas dependencias necesarias para nuestra aplicación (git, curl, small light, etc), configura el modulo small light de manera dinámica, crea la carpeta correspondiente a dicho modulo y copia el fichero .so en dicha carpeta. Finalmente copia el fichero de configuración de nginx.
+
+```
+pc18-dpl@a109pc18dpl:~/dev/app$ ls -l
+total 24
+-rw-r--r-- 1 root     root      145 nov  2 15:51 default.conf
+-rw-r--r-- 1 root     root      236 nov  2 15:51 docker-compose.yml
+-rw-r--r-- 1 root     root      680 nov  2 14:58 Dockerfile
+drwxr-xr-x 5 root     root     4096 oct 30 17:06 images
+-rw-r--r-- 1 root     root      711 nov  2 15:05 nginx.conf
+drwxr-xr-x 2 pc18-dpl pc18-dpl 4096 oct  5 15:26 src
+```
+
+```
+pc18-dpl@a109pc18dpl:~/dev/app$ cat Dockerfile
+FROM nginx:1.24.0
+RUN apt update 
+RUN apt install -y gcc make pkg-config libmagickwand-dev libpcre3-dev git curl tar gzip gnupg2 ca-certificates zlib1g zlib1g-dev libssl-dev lsb-release debian-archive-keyring > /dev/null 2>&1
+RUN curl -sL https://nginx.org/download/nginx-1.24.0.tar.gz | tar xvz -C /tmp
+RUN git clone https://github.com/cubicdaiya/ngx_small_light.git /tmp/ngx_small_light
+WORKDIR "/tmp/ngx_small_light"
+RUN ./setup
+WORKDIR "/tmp/nginx-1.24.0"
+RUN ./configure --add-dynamic-module=../ngx_small_light --with-compat
+RUN make modules
+RUN mkdir -p /etc/nginx/modules
+RUN cp objs/ngx_http_small_light_module.so /etc/nginx/modules
+COPY nginx.conf /etc/nginx/nginx.conf
+```
+
+- Después de crear el "Dockerfile" editamos el "docker-compose.yml" con las siguientes líneas. Este fichero se encargrá de montar el docker y referenciar los volumenes de nuestra aplicación nativa (images) y el defatult.conf con las rutas correspondientes al docker. Establecemos el puerto 90 como puerto de despliegue de nuestra aplicación dockerizada.
+```
+pc18-dpl@a109pc18dpl:~/dev/app$ cat docker-compose.yml 
+version: "3.3"
+
+services:
+  web:
+    build: .
+    container_name: alejandronginx
+    volumes:
+      - ./images:/etc/nginx/html # "root" por defecto en Nginx
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 90:80
+```
+
+- Finalmente ejecutamos el comando "docker compose up", que en primer lugar procederá a ejecutar el "Dockerfile" y todas las instrucciones establecidas en él (descarga de imagen nginx, dependencias, configurar modulo, etc) una vez finalice y si todo ha ido bien, tendremos levantada nuestra aplicación con el name server correspondiente y en el puerto correspondiente.
+
 ### Conclusiones<a name="id6"></a>
 
-En términos generales la práctica ha servido para conocer distintos módulos para hacer uso en aplicaciones web y ...
+- En términos generales la práctica ha servido para conocer distintos módulos con utilidades que nos puedan llegar a interesar en el desarrollo de determinadas aplicaciones web futuras. Por último destacar el aprendizaje de dockerizar una aplicación de manera rápida y efectiva haciendo uso de  un "Dockerfile".
+
+</div>
