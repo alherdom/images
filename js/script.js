@@ -5,7 +5,6 @@ document.getElementById("data").addEventListener("submit", function (event) {
     table.innerHTML = '';
 
     var dh = dw = document.getElementById("size").value;
-
     if (dh > 1) {
 
         var bh = bw = document.getElementById("border-width").value;
