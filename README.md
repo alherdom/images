@@ -44,7 +44,7 @@
 1. Se ha empleado el equipo del aula.
 2. Las máquinas virtuales configuradas para el despliegue. 
 3. Despliegue nativo haciendo uso de servidor nginx.
-4. Despliegue dokerizado, mediante docker compose.
+4. Despliegue dokerizado, mediante docker compose y dockerfile.
 5. Para la instalación del módulo seguir las instrucciones de instalación de módulos, teniendo en cuenta que:
 
 - Se deben instalar las siguientes dependencias:
