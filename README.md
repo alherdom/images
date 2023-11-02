@@ -39,13 +39,6 @@
  5. Incorporar certificado de seguridad (mostrar el certificado 🔒).
  6. Redirigir el subdominio www al dominio base (incluyendo ssl).
 
-<img src="template.png">
-
-2. Incluir esta imagen de la calculadora que se adjunta.
-3. Incluir un fichero .css con unos estilos básicos.
-4. La "calculadora nativa" debe tener como título h1 "Calculadora en entorno nativo" y la "calculadora dockerizada" debe tener como título h1 "Calculadora en entorno dockerizado".
-5. Trabajar en una carpeta dentro del $HOME.
-
 ### Material empleado <a name="id3"></a>
 
 1. Se ha empleado el equipo del aula
@@ -54,7 +47,7 @@
 4. Despliegue dokerizado, mediante docker compose.
 5. Para la instalación del módulo seguir las instrucciones de instalación de módulos, teniendo en cuenta que:
 
-- Hay que instalar las siguientes dependencias:
+- Se deben instalar las siguientes dependencias:
 
 ```
 sudo apt install -y build-essential imagemagick libpcre3 libpcre3-dev libmagickwand-dev
